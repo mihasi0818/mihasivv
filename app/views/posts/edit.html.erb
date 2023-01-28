@@ -1,7 +1,5 @@
-<h3>ユーザー新規作成</h3>
-<%= render "shared/error", obj: @user %>
-<%= form_with model: @user do |f| %>
-
+<h3>ユーザー編集</h3>
+<%= form_with model: @post do |f| %>
 <table>
   <tr>
     <th><%= f.label :title ,"タイトル" %></th>
@@ -12,7 +10,7 @@
     <th><%= f.label :start ,"開始日" %></th>
     <td><%= f.date_field :start %></td>
   </tr>
-
+  
   <tr>
     <th><%= f.label :check ,"終日" %></th>
     <td><%= f.check_box :check, {} , "○", nil %></td>
@@ -24,7 +22,7 @@
   </tr>
 
   <tr>
-    <th><%= f.label :updated_at ,"更新日" %></th>
+    <th><%= f.label :updated_at ,"更新日時" %></th>
     <td><%= f.datetime_field :updated_at %></td>
   </tr>
   
@@ -32,12 +30,12 @@
     <th><%= f.label :content, "内容" %></th>
     <td><%= f.text_area :content, class:"posts-content" %></td>
   </tr>
-
 </table>
 
 <div>
   <ul>
     <li><%= f.submit "完了する！" %></li>
+    <li><%= link_to "一覧に戻る", :posts %></li>
   </ul>
 </div>
 <% end %>

@@ -1,17 +1,44 @@
-<h3>編集</h3>
-
-<%= form_with model: @post do |f| %>
-  <table>
-    <tr>
-      <th><%= f.label :content, "投稿内容" %></th>
-      <td><%= f.text_area :content ,class:"posts-content" %></td>
-    </tr>
-  </table>
-
-  <div>
-    <ul>
-      <li><%= f.submit "編集を完了する！！" %></li>
-      <li><%= link_to "ユーザー情報一覧に戻る", :users %></li>
-    </ul>
-  </div>
+<h3>予定一覧</h3>
+<% if flash[:notice] %>
+<p class="notice"><%= flash[:notice] %></p>
 <% end %>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>タイトル</th>
+      <th>終日</th>
+      <th>開始日</th>
+      <th>終了日</th>
+      <th>更新日</th>
+      </tr>
+   </thead>
+
+  <tbody>
+     <% @posts.each do |post|%>
+    <tr>
+
+      <td><%= post.id %></td>
+      <td><%= post.title %></td>
+      <td><%= post.check %></td>
+      <td><%= post.start.strftime('%Y/%-m/%-d') %></td>
+      <td><%= post.end.strftime('%Y/%-m/%-d') %></td>
+      <td><%= post.updated_at.strftime('%Y/%-m/%-d %-H:%M') %></td>
+     <td>
+      <%= link_to "予定詳細", post %>
+    </td>
+     <td>
+      <%= link_to "予定編集！", [:edit, post] %>
+    </td>
+     <td>
+      <%= link_to "削除", post, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+    </td>
+  </tr>
+   <%end%>
+  </tbody>
+</table>
+
+<p>件数  <%= Post.count %></p>
+<p>本日の日付:<%= Date.current.strftime('%Y/%-m/%-d') %></p>
+<%= link_to "予定の新規追加", :new_post %>
+
